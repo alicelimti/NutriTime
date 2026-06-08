@@ -103,7 +103,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(61, 61, 192, 0.1);
+  box-shadow: 0 2px 8px rgba(74, 158, 38, 0.12);
 }
 
 .time-group-label {
@@ -125,7 +125,7 @@
   background: var(--white);
   padding: 6px 12px;
   border-radius: 20px;
-  box-shadow: 0 1px 4px rgba(61, 61, 192, 0.1);
+  box-shadow: 0 1px 4px rgba(74, 158, 38, 0.12);
 }
 
 .time-group-supplements {

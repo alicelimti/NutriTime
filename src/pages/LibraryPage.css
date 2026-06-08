@@ -88,9 +88,16 @@
   padding: 16px 14px 14px;
   box-shadow: var(--shadow);
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: all 0.18s;
   border: 1.5px solid transparent;
   position: relative;
+}
+
+.supp-card:hover {
+  border-color: var(--accent);
+  background: #FFFDE8;
+  box-shadow: 0 4px 16px rgba(253, 241, 101, 0.45);
+  transform: translateY(-2px);
 }
 
 .supp-card:active {
@@ -99,7 +106,7 @@
 
 .supp-card.added {
   border-color: var(--primary-light);
-  background: #FAFAFE;
+  background: #F0FEE8;
 }
 
 .supp-emoji {
@@ -146,6 +153,12 @@
   font-size: 14px;
 }
 
-.supp-add-btn:hover {
+.supp-add-btn:not(.added):hover {
+  background: var(--accent);
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.supp-add-btn.added:hover {
   transform: scale(1.1);
 }
