@@ -187,4 +187,16 @@ export const SUPPLEMENTS = [
     caution: '혈액 검사 결과에 영향을 줄 수 있으므로 검사 전 중단',
     defaultGroup: 'morning',
   },
+  {
+    id: 'cranberry',
+    name: '크랜베리',
+    emoji: '🍒',
+    effect: '요로·방광 건강',
+    description: '크랜베리의 PAC(프로안토시아니딘) 성분이 박테리아의 요로 점막 부착을 억제해 요로감염 예방에 효과적입니다. 항산화 성분이 풍부해 면역력 유지에도 도움을 줍니다.',
+    combination: '비타민C (항균·항산화 시너지)',
+    ageGroup: '요로감염이 잦은 여성, 중장년 여성, 전 연령 항산화 목적',
+    timing: '식후 복용 (공복 복용 시 위 자극 가능)',
+    caution: '와파린(혈액희석제) 복용자는 상호작용 주의. 신장 결석 병력자는 전문가 상담 필요',
+    defaultGroup: 'morning',
+  },
 ]
