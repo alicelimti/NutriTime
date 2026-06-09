@@ -205,3 +205,20 @@
   background: #FFE8E8;
   color: #CC3333;
 }
+
+.med-item {
+  background: #F0F6FF;
+  border-radius: var(--radius-sm);
+}
+
+.med-badge {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #4A7AB5;
+  background: #DCE9FF;
+  padding: 1px 6px;
+  border-radius: 10px;
+  vertical-align: middle;
+}

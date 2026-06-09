@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import LibraryPage from './pages/LibraryPage'
+import MedicationPage from './pages/MedicationPage'
 import SchedulePage from './pages/SchedulePage'
 import SettingsPage from './pages/SettingsPage'
 import NavBar from './components/NavBar'
@@ -11,6 +12,14 @@ const DEFAULT_MY_SUPPLEMENTS = {
   afternoon: ['vitb', 'coq10'],
   evening:   ['calcium', 'vite'],
   bedtime:   ['magnesium', 'melatonin'],
+}
+
+const DEFAULT_MY_MEDICATIONS = {
+  wake:      [],
+  morning:   [],
+  afternoon: [],
+  evening:   [],
+  bedtime:   [],
 }
 
 const DEFAULT_SETTINGS = {
@@ -39,6 +48,11 @@ export default function App() {
     catch { return DEFAULT_MY_SUPPLEMENTS }
   })
 
+  const [myMedications, setMyMedications] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('myMedications')) || DEFAULT_MY_MEDICATIONS }
+    catch { return DEFAULT_MY_MEDICATIONS }
+  })
+
   const [settings, setSettings] = useState(() => {
     try { return JSON.parse(localStorage.getItem('settings')) || DEFAULT_SETTINGS }
     catch { return DEFAULT_SETTINGS }
@@ -49,6 +63,10 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('mySupplements', JSON.stringify(mySupplements))
   }, [mySupplements])
+
+  useEffect(() => {
+    localStorage.setItem('myMedications', JSON.stringify(myMedications))
+  }, [myMedications])
 
   useEffect(() => {
     localStorage.setItem('settings', JSON.stringify(settings))
@@ -72,6 +90,19 @@ export default function App() {
   const isInSchedule = (suppId) =>
     Object.values(mySupplements).some(ids => ids.includes(suppId))
 
+  const toggleMedication = (groupId, medId) => {
+    setMyMedications(prev => {
+      const group = prev[groupId] || []
+      const updated = group.includes(medId)
+        ? group.filter(id => id !== medId)
+        : [...group, medId]
+      return { ...prev, [groupId]: updated }
+    })
+  }
+
+  const isInMedSchedule = (medId) =>
+    Object.values(myMedications).some(ids => ids.includes(medId))
+
   const toggleCheck = (suppId) => {
     setTodayChecked(prev =>
       prev.includes(suppId) ? prev.filter(id => id !== suppId) : [...prev, suppId]
@@ -84,7 +115,8 @@ export default function App() {
     <div className="app">
       <div className="page-content">
         {tab === 'library'  && <LibraryPage  {...sharedProps} />}
-        {tab === 'schedule' && <SchedulePage {...sharedProps} setSettings={setSettings} />}
+        {tab === 'meds'     && <MedicationPage myMedications={myMedications} isInMedSchedule={isInMedSchedule} toggleMedication={toggleMedication} />}
+        {tab === 'schedule' && <SchedulePage {...sharedProps} myMedications={myMedications} toggleMedication={toggleMedication} setSettings={setSettings} />}
         {tab === 'settings' && <SettingsPage settings={settings} setSettings={setSettings} />}
       </div>
       <NavBar tab={tab} setTab={setTab} />

@@ -1,0 +1,74 @@
+.medication {
+  padding-bottom: 20px;
+}
+
+.medication-header {
+  background: linear-gradient(135deg, #3D7DB8 0%, #5294CC 60%, #7AB8E8 100%);
+  padding: 28px 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.medication-header::before,
+.medication-header::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+}
+.medication-header::before {
+  width: 140px; height: 140px;
+  top: -60px; right: -30px;
+}
+.medication-header::after {
+  width: 90px; height: 90px;
+  bottom: -40px; right: 60px;
+}
+
+.medication-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.medication-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 16px;
+}
+
+.medication-search {
+  background: rgba(255,255,255,0.18);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+}
+
+.medication-search input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+  font-size: 14px;
+  width: 100%;
+}
+
+.medication-search input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.medication-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 12px 20px 8px;
+}
+
+/* Card grid + card styles are shared from LibraryPage.css via global injection */
+/* supplement-grid, supp-card, supp-emoji, supp-name, supp-effect, supp-add-btn */

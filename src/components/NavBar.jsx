@@ -1,7 +1,8 @@
 import './NavBar.css'
 
 const TABS = [
-  { id: 'library',  label: '라이브러리', icon: '💊' },
+  { id: 'library',  label: '라이브러리', icon: '🌿' },
+  { id: 'meds',     label: '복용약',     icon: '💉' },
   { id: 'schedule', label: '내 일정',    icon: '📋' },
   { id: 'settings', label: '설정',       icon: '⚙️' },
 ]

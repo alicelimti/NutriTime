@@ -1,7 +1,11 @@
 import { TIME_GROUPS, SUPPLEMENTS } from '../data/supplements'
+import { MEDICATIONS } from '../data/medications'
 import './SchedulePage.css'
 
-export default function SchedulePage({ mySupplements, settings, todayChecked, toggleCheck, toggleSupplement }) {
+export default function SchedulePage({
+  mySupplements, myMedications, settings, todayChecked,
+  toggleCheck, toggleSupplement, toggleMedication, setSettings,
+}) {
   const groupTime = {
     wake:      settings.wakeTime,
     morning:   settings.breakfastTime,
@@ -10,10 +14,13 @@ export default function SchedulePage({ mySupplements, settings, todayChecked, to
     bedtime:   settings.bedtimeTime,
   }
 
-  const totalCount = Object.values(mySupplements).reduce((sum, ids) => sum + ids.length, 0)
+  const suppTotal = Object.values(mySupplements).reduce((s, ids) => s + ids.length, 0)
+  const medTotal  = Object.values(myMedications).reduce((s, ids) => s + ids.length, 0)
+  const totalCount   = suppTotal + medTotal
   const checkedCount = todayChecked.length
 
   const getSupp = id => SUPPLEMENTS.find(s => s.id === id)
+  const getMed  = id => MEDICATIONS.find(m => m.id === id)
 
   return (
     <div className="schedule">
@@ -33,15 +40,16 @@ export default function SchedulePage({ mySupplements, settings, todayChecked, to
       {totalCount === 0 && (
         <div className="schedule-empty">
           <p>💊</p>
-          <p>아직 추가한 영양제가 없어요</p>
-          <p>라이브러리에서 영양제를 추가해보세요!</p>
+          <p>아직 추가한 영양제·복용약이 없어요</p>
+          <p>라이브러리 또는 복용약 탭에서 추가해보세요!</p>
         </div>
       )}
 
       <div className="time-groups">
         {TIME_GROUPS.map(group => {
-          const ids = mySupplements[group.id] || []
-          if (ids.length === 0) return null
+          const suppIds = mySupplements[group.id] || []
+          const medIds  = myMedications[group.id]  || []
+          if (suppIds.length === 0 && medIds.length === 0) return null
 
           return (
             <div key={group.id} className="time-group">
@@ -59,7 +67,7 @@ export default function SchedulePage({ mySupplements, settings, todayChecked, to
               </div>
 
               <div className="time-group-supplements">
-                {ids.map(id => {
+                {suppIds.map(id => {
                   const supp = getSupp(id)
                   if (!supp) return null
                   const checked = todayChecked.includes(id)
@@ -76,6 +84,34 @@ export default function SchedulePage({ mySupplements, settings, todayChecked, to
                       <button
                         className="schedule-remove-btn"
                         onClick={() => toggleSupplement(group.id, id)}
+                        title="제거"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  )
+                })}
+
+                {medIds.map(id => {
+                  const med = getMed(id)
+                  if (!med) return null
+                  const checked = todayChecked.includes(id)
+                  return (
+                    <div key={id} className={`schedule-supp med-item${checked ? ' checked' : ''}`}>
+                      <button
+                        className={`check-btn${checked ? ' checked' : ''}`}
+                        onClick={() => toggleCheck(id)}
+                      >
+                        {checked ? '✓' : ''}
+                      </button>
+                      <span className="schedule-supp-emoji">{med.emoji}</span>
+                      <span className="schedule-supp-name">
+                        {med.name}
+                        <span className="med-badge">처방약</span>
+                      </span>
+                      <button
+                        className="schedule-remove-btn"
+                        onClick={() => toggleMedication(group.id, id)}
                         title="제거"
                       >
                         ✕
