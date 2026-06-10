@@ -162,3 +162,25 @@
 .supp-add-btn.added:hover {
   transform: scale(1.1);
 }
+
+.add-custom-card {
+  border: 1.5px dashed var(--border);
+  background: var(--bg);
+}
+
+.add-custom-card:hover {
+  border-color: var(--primary);
+  border-style: dashed;
+  background: var(--primary-bg);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.add-custom-card .supp-name {
+  color: var(--text-secondary);
+}
+
+.add-custom-card .supp-effect {
+  color: var(--text-muted);
+  font-style: italic;
+}

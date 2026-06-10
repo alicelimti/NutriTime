@@ -11,7 +11,7 @@ const DETAIL_ROWS = [
   { key: 'ageGroup',    icon: '👤', label: '주요 대상' },
 ]
 
-export default function MedicationModal({ med, myMedications, onToggle, onClose }) {
+export default function MedicationModal({ med, myMedications, onToggle, onClose, onDelete }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
@@ -36,7 +36,7 @@ export default function MedicationModal({ med, myMedications, onToggle, onClose 
         </div>
 
         <div className="modal-body">
-          {DETAIL_ROWS.map(row => (
+          {DETAIL_ROWS.map(row => med[row.key] ? (
             <div key={row.key} className="modal-row">
               <div className="modal-row-label">
                 <span>{row.icon}</span>
@@ -44,7 +44,7 @@ export default function MedicationModal({ med, myMedications, onToggle, onClose 
               </div>
               <p className="modal-row-text">{med[row.key]}</p>
             </div>
-          ))}
+          ) : null)}
         </div>
 
         <div className="modal-footer">
@@ -64,6 +64,11 @@ export default function MedicationModal({ med, myMedications, onToggle, onClose 
               )
             })}
           </div>
+          {onDelete && (
+            <button className="modal-delete-btn" onClick={() => { onDelete(med.id); onClose() }}>
+              🗑 목록에서 삭제
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -1,13 +1,21 @@
 import { useState } from 'react'
 import { SUPPLEMENTS } from '../data/supplements'
 import SupplementModal from '../components/SupplementModal'
+import CustomAddModal from '../components/CustomAddModal'
 import './LibraryPage.css'
 
-export default function LibraryPage({ mySupplements, isInSchedule, toggleSupplement }) {
-  const [search, setSearch] = useState('')
-  const [selected, setSelected] = useState(null)
+const CUSTOM_CARD = { id: '__add__', name: '직접 추가', emoji: '✏️', effect: '나만의 영양제를 추가하세요' }
 
-  const filtered = SUPPLEMENTS.filter(s =>
+export default function LibraryPage({
+  mySupplements, isInSchedule, toggleSupplement,
+  customSupplements, addCustomSupplement, deleteCustomSupplement,
+}) {
+  const [search, setSearch]       = useState('')
+  const [selected, setSelected]   = useState(null)
+  const [showAddForm, setShowAddForm] = useState(false)
+
+  const allSupplements = [...SUPPLEMENTS, ...customSupplements]
+  const filtered = allSupplements.filter(s =>
     s.name.includes(search) || s.effect.includes(search)
   )
 
@@ -73,6 +81,22 @@ export default function LibraryPage({ mySupplements, isInSchedule, toggleSupplem
             </div>
           )
         })}
+
+        {/* 직접 추가 카드 */}
+        <div
+          className="supp-card add-custom-card"
+          onClick={() => setShowAddForm(true)}
+        >
+          <div className="supp-emoji">{CUSTOM_CARD.emoji}</div>
+          <div className="supp-name">{CUSTOM_CARD.name}</div>
+          <div className="supp-effect">{CUSTOM_CARD.effect}</div>
+          <button
+            className="supp-add-btn"
+            onClick={e => { e.stopPropagation(); setShowAddForm(true) }}
+          >
+            +
+          </button>
+        </div>
       </div>
 
       {selected && (
@@ -81,6 +105,15 @@ export default function LibraryPage({ mySupplements, isInSchedule, toggleSupplem
           mySupplements={mySupplements}
           onToggle={handleToggle}
           onClose={() => setSelected(null)}
+          onDelete={selected.isCustom ? (id) => { deleteCustomSupplement(id) } : undefined}
+        />
+      )}
+
+      {showAddForm && (
+        <CustomAddModal
+          type="supplement"
+          onAdd={addCustomSupplement}
+          onClose={() => setShowAddForm(false)}
         />
       )}
     </div>

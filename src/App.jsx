@@ -53,6 +53,16 @@ export default function App() {
     catch { return DEFAULT_MY_MEDICATIONS }
   })
 
+  const [customSupplements, setCustomSupplements] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('customSupplements')) || [] }
+    catch { return [] }
+  })
+
+  const [customMedications, setCustomMedications] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('customMedications')) || [] }
+    catch { return [] }
+  })
+
   const [settings, setSettings] = useState(() => {
     try { return JSON.parse(localStorage.getItem('settings')) || DEFAULT_SETTINGS }
     catch { return DEFAULT_SETTINGS }
@@ -67,6 +77,14 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('myMedications', JSON.stringify(myMedications))
   }, [myMedications])
+
+  useEffect(() => {
+    localStorage.setItem('customSupplements', JSON.stringify(customSupplements))
+  }, [customSupplements])
+
+  useEffect(() => {
+    localStorage.setItem('customMedications', JSON.stringify(customMedications))
+  }, [customMedications])
 
   useEffect(() => {
     localStorage.setItem('settings', JSON.stringify(settings))
@@ -103,6 +121,34 @@ export default function App() {
   const isInMedSchedule = (medId) =>
     Object.values(myMedications).some(ids => ids.includes(medId))
 
+  const addCustomSupplement = (item) => {
+    setCustomSupplements(prev => [...prev, item])
+    toggleSupplement(item.defaultGroup, item.id)
+  }
+
+  const deleteCustomSupplement = (id) => {
+    setCustomSupplements(prev => prev.filter(s => s.id !== id))
+    setMySupplements(prev => {
+      const next = {}
+      for (const [g, ids] of Object.entries(prev)) next[g] = ids.filter(i => i !== id)
+      return next
+    })
+  }
+
+  const addCustomMedication = (item) => {
+    setCustomMedications(prev => [...prev, item])
+    toggleMedication(item.defaultGroup, item.id)
+  }
+
+  const deleteCustomMedication = (id) => {
+    setCustomMedications(prev => prev.filter(m => m.id !== id))
+    setMyMedications(prev => {
+      const next = {}
+      for (const [g, ids] of Object.entries(prev)) next[g] = ids.filter(i => i !== id)
+      return next
+    })
+  }
+
   const toggleCheck = (suppId) => {
     setTodayChecked(prev =>
       prev.includes(suppId) ? prev.filter(id => id !== suppId) : [...prev, suppId]
@@ -114,9 +160,9 @@ export default function App() {
   return (
     <div className="app">
       <div className="page-content">
-        {tab === 'library'  && <LibraryPage  {...sharedProps} />}
-        {tab === 'meds'     && <MedicationPage myMedications={myMedications} isInMedSchedule={isInMedSchedule} toggleMedication={toggleMedication} />}
-        {tab === 'schedule' && <SchedulePage {...sharedProps} myMedications={myMedications} toggleMedication={toggleMedication} setSettings={setSettings} />}
+        {tab === 'library'  && <LibraryPage  {...sharedProps} customSupplements={customSupplements} addCustomSupplement={addCustomSupplement} deleteCustomSupplement={deleteCustomSupplement} />}
+        {tab === 'meds'     && <MedicationPage myMedications={myMedications} isInMedSchedule={isInMedSchedule} toggleMedication={toggleMedication} customMedications={customMedications} addCustomMedication={addCustomMedication} deleteCustomMedication={deleteCustomMedication} />}
+        {tab === 'schedule' && <SchedulePage {...sharedProps} myMedications={myMedications} toggleMedication={toggleMedication} customSupplements={customSupplements} customMedications={customMedications} setSettings={setSettings} />}
         {tab === 'settings' && <SettingsPage settings={settings} setSettings={setSettings} />}
       </div>
       <NavBar tab={tab} setTab={setTab} />

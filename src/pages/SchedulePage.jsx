@@ -5,6 +5,7 @@ import './SchedulePage.css'
 export default function SchedulePage({
   mySupplements, myMedications, settings, todayChecked,
   toggleCheck, toggleSupplement, toggleMedication, setSettings,
+  customSupplements, customMedications,
 }) {
   const groupTime = {
     wake:      settings.wakeTime,
@@ -19,8 +20,8 @@ export default function SchedulePage({
   const totalCount   = suppTotal + medTotal
   const checkedCount = todayChecked.length
 
-  const getSupp = id => SUPPLEMENTS.find(s => s.id === id)
-  const getMed  = id => MEDICATIONS.find(m => m.id === id)
+  const getSupp = id => SUPPLEMENTS.find(s => s.id === id) || (customSupplements || []).find(s => s.id === id)
+  const getMed  = id => MEDICATIONS.find(m => m.id === id) || (customMedications  || []).find(m => m.id === id)
 
   return (
     <div className="schedule">

@@ -10,7 +10,7 @@ const DETAIL_ROWS = [
   { key: 'caution',     icon: '⚠️', label: '주의사항' },
 ]
 
-export default function SupplementModal({ supp, mySupplements, onToggle, onClose }) {
+export default function SupplementModal({ supp, mySupplements, onToggle, onClose, onDelete }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
@@ -35,7 +35,7 @@ export default function SupplementModal({ supp, mySupplements, onToggle, onClose
         </div>
 
         <div className="modal-body">
-          {DETAIL_ROWS.map(row => (
+          {DETAIL_ROWS.map(row => supp[row.key] ? (
             <div key={row.key} className="modal-row">
               <div className="modal-row-label">
                 <span>{row.icon}</span>
@@ -43,7 +43,7 @@ export default function SupplementModal({ supp, mySupplements, onToggle, onClose
               </div>
               <p className="modal-row-text">{supp[row.key]}</p>
             </div>
-          ))}
+          ) : null)}
         </div>
 
         <div className="modal-footer">
@@ -63,6 +63,11 @@ export default function SupplementModal({ supp, mySupplements, onToggle, onClose
               )
             })}
           </div>
+          {onDelete && (
+            <button className="modal-delete-btn" onClick={() => { onDelete(supp.id); onClose() }}>
+              🗑 목록에서 삭제
+            </button>
+          )}
         </div>
       </div>
     </div>
