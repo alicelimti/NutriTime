@@ -161,3 +161,21 @@
   background: var(--primary-bg);
   border-color: var(--primary-light);
 }
+
+.modal-delete-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 11px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #CC3333;
+  background: #FFF0F0;
+  border: 1.5px solid #F5C0C0;
+  transition: background 0.15s;
+}
+
+.modal-delete-btn:hover {
+  background: #FFE0E0;
+}
