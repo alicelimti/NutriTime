@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import LibraryPage from './pages/LibraryPage'
 import MedicationPage from './pages/MedicationPage'
+import WaterPage from './pages/WaterPage'
 import SchedulePage from './pages/SchedulePage'
 import SettingsPage from './pages/SettingsPage'
 import NavBar from './components/NavBar'
@@ -162,6 +163,7 @@ export default function App() {
       <div className="page-content">
         {tab === 'library'  && <LibraryPage  {...sharedProps} customSupplements={customSupplements} addCustomSupplement={addCustomSupplement} deleteCustomSupplement={deleteCustomSupplement} />}
         {tab === 'meds'     && <MedicationPage myMedications={myMedications} isInMedSchedule={isInMedSchedule} toggleMedication={toggleMedication} customMedications={customMedications} addCustomMedication={addCustomMedication} deleteCustomMedication={deleteCustomMedication} />}
+        {tab === 'water'    && <WaterPage />}
         {tab === 'schedule' && <SchedulePage {...sharedProps} myMedications={myMedications} toggleMedication={toggleMedication} customSupplements={customSupplements} customMedications={customMedications} setSettings={setSettings} />}
         {tab === 'settings' && <SettingsPage settings={settings} setSettings={setSettings} />}
       </div>

@@ -1,0 +1,202 @@
+.water-page {
+  padding-bottom: 20px;
+}
+
+/* ─── Header ─── */
+.water-header {
+  background: linear-gradient(135deg, #0D47A1 0%, #1976D2 60%, #42A5F5 100%);
+  padding: 28px 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.water-header::before,
+.water-header::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+}
+.water-header::before { width: 140px; height: 140px; top: -60px; right: -30px; }
+.water-header::after  { width: 90px;  height: 90px;  bottom: -40px; right: 60px; }
+
+.water-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.water-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ─── Calc card ─── */
+.water-calc-card {
+  margin: 16px 20px 0;
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(25,118,210,0.10);
+  border: 1.5px solid rgba(100,181,246,0.3);
+}
+.calc-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5C9BD4;
+  margin-bottom: 10px;
+}
+.calc-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.weight-input {
+  width: 80px;
+  padding: 8px 10px;
+  border: 2px solid #BBDEFB;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1565C0;
+  text-align: center;
+  outline: none;
+  background: #E3F2FD;
+}
+.weight-input:focus { border-color: #1976D2; }
+.calc-unit { font-size: 13px; color: #5C9BD4; font-weight: 600; }
+.calc-op   { font-size: 13px; color: #90A4AE; }
+.calc-eq   { font-size: 13px; color: #90A4AE; }
+.calc-result {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1565C0;
+}
+
+/* ─── Bottle section ─── */
+.bottle-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px 16px;
+  gap: 20px;
+}
+
+.bottle-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.bottle-top-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #E3F2FD;
+  border: 1.5px solid #BBDEFB;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 13px;
+}
+.badge-goal  { color: #5C9BD4; font-weight: 600; }
+.badge-val   { color: #1565C0; font-weight: 800; font-size: 15px; }
+.badge-hint  { color: #90A4AE; font-weight: 500; }
+
+.bottle-svg {
+  width: 130px;
+  height: auto;
+  filter: drop-shadow(0 8px 28px rgba(25,118,210,0.18));
+}
+
+.bottle-amount-outside {
+  font-size: 18px;
+  font-weight: 700;
+  color: #90A4AE;
+  margin-top: -4px;
+}
+
+.bottle-progress-text {
+  font-size: 14px;
+  color: #5C9BD4;
+}
+.prog-current { font-size: 18px; font-weight: 800; color: #1565C0; }
+.prog-sep     { color: #BBDEFB; margin: 0 2px; }
+.prog-goal    { color: #90A4AE; font-weight: 500; }
+.prog-pct     { color: #42A5F5; font-weight: 600; }
+
+/* ─── Controls ─── */
+.water-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.water-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  transition: all 0.18s;
+  box-shadow: 0 2px 12px rgba(25,118,210,0.15);
+  gap: 1px;
+}
+.btn-icon  { font-size: 24px; font-weight: 800; line-height: 1; }
+.btn-label { font-size: 10px; font-weight: 700; }
+
+.water-btn.plus {
+  background: #1976D2;
+  color: #fff;
+}
+.water-btn.plus:hover  { background: #1565C0; transform: scale(1.06); }
+.water-btn.plus:active { transform: scale(0.95); }
+
+.water-btn.minus {
+  background: #E3F2FD;
+  color: #1976D2;
+  border: 2px solid #BBDEFB;
+}
+.water-btn.minus:hover:not(:disabled) { background: #BBDEFB; transform: scale(1.06); }
+.water-btn.minus:active:not(:disabled){ transform: scale(0.95); }
+.water-btn.minus:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.water-pct-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Reset ─── */
+.reset-btn {
+  font-size: 12px;
+  color: #90A4AE;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+.reset-btn:hover { color: #e53935; }
+
+/* ─── Complete banner ─── */
+.water-complete {
+  background: linear-gradient(135deg, #1976D2, #42A5F5);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 30px;
+  box-shadow: 0 4px 16px rgba(25,118,210,0.25);
+  animation: pop-in 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes pop-in {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
