@@ -128,6 +128,18 @@ export const SUPPLEMENTS = [
     defaultGroup: 'wake',
   },
   {
+    id: 'multivitamin',
+    name: '종합비타민',
+    emoji: '🌈',
+    effect: '전반적인 영양 보충',
+    description: '하루에 필요한 비타민과 미네랄을 한 번에 보충할 수 있는 복합 영양제입니다. 편식이나 불규칙한 식사로 인한 영양 불균형 예방에 효과적입니다.',
+    combination: '오메가3 (전반적 건강 시너지)',
+    ageGroup: '전 연령, 식사가 불규칙하거나 영양 섭취가 부족한 분',
+    timing: '아침 식후 (흡수율 최적화)',
+    caution: '개별 비타민과 중복 복용 시 과잉 섭취 주의. 지용성 비타민(A·D·E·K) 과다 복용에 특히 유의',
+    defaultGroup: 'morning',
+  },
+  {
     id: 'iron',
     name: '철분',
     emoji: '🔴',
