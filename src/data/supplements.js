@@ -43,19 +43,7 @@ export const SUPPLEMENTS = [
     caution: '장기 복용 주의, 임산부 금지',
     defaultGroup: 'bedtime',
   },
-  {
-    id: 'biotin',
-    name: '비오틴',
-    emoji: '💇',
-    effect: '모발·피부·손톱',
-    description: '모발 성장 촉진, 피부 건강, 손발톱 강화에 도움을 줍니다.',
-    combination: '비타민B군 (함께 복용 효과적)',
-    ageGroup: '탈모 고민이 있거나 피부 건강에 관심 있는 분',
-    timing: '식사와 함께',
-    caution: '혈액 검사 결과에 영향을 줄 수 있으므로 검사 전 중단',
-    defaultGroup: 'morning',
-  },
-  {
+{
     id: 'vitb',
     name: '비타민B군',
     emoji: '⚡',
@@ -175,19 +163,7 @@ export const SUPPLEMENTS = [
     caution: '스타틴 계열 약물 복용 시 의사 상담',
     defaultGroup: 'afternoon',
   },
-  {
-    id: 'collagen',
-    name: '콜라겐',
-    emoji: '✨',
-    effect: '피부·관절',
-    description: '피부 탄력 유지, 관절 건강, 뼈 강화에 도움을 줍니다.',
-    combination: '비타민C (흡수율 향상)',
-    ageGroup: '30대 이상, 피부·관절 건강에 관심 있는 분',
-    timing: '공복 또는 취침 전 (흡수율 최대화)',
-    caution: '특별한 부작용은 없으나 알레르기 확인 필요',
-    defaultGroup: 'morning',
-  },
-  {
+{
     id: 'cranberry',
     name: '크랜베리',
     emoji: '🍒',
