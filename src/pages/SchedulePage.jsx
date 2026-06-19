@@ -27,6 +27,10 @@ export default function SchedulePage({
     <div className="schedule">
       <div className="schedule-header">
         <h1 className="schedule-title"><span>📋</span> 오늘의 복용 일정</h1>
+        <p className="schedule-sub">영양제와 약을 꾸준히 복용하세요</p>
+      </div>
+
+      <div className="schedule-progress-card">
         <div className="schedule-progress-bar">
           <div
             className="schedule-progress-fill"
