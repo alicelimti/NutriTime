@@ -3,7 +3,7 @@
 }
 
 .library-header {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%);
+  background: linear-gradient(135deg, #EBC776 0%, #F5D99D 60%, #FAE9C0 100%);
   padding: 28px 20px 24px;
   position: relative;
   overflow: hidden;
@@ -14,7 +14,7 @@
   content: '';
   position: absolute;
   border-radius: 50%;
-  background: rgba(255,255,255,0.07);
+  background: rgba(0,0,0,0.05);
 }
 .library-header::before {
   width: 140px; height: 140px;
@@ -28,7 +28,7 @@
 .library-title {
   font-size: 22px;
   font-weight: 800;
-  color: var(--white);
+  color: #6B4800;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -37,12 +37,12 @@
 
 .library-sub {
   font-size: 13px;
-  color: rgba(255,255,255,0.75);
+  color: rgba(107,72,0,0.70);
   margin-bottom: 16px;
 }
 
 .library-search {
-  background: rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.07);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -54,13 +54,13 @@
   background: none;
   border: none;
   outline: none;
-  color: var(--white);
+  color: #6B4800;
   font-size: 14px;
   width: 100%;
 }
 
 .library-search input::placeholder {
-  color: rgba(255,255,255,0.6);
+  color: rgba(107,72,0,0.45);
 }
 
 .search-icon {

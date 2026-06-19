@@ -4,7 +4,7 @@
 
 /* ─── Header ─── */
 .water-header {
-  background: linear-gradient(135deg, #0D47A1 0%, #1976D2 60%, #42A5F5 100%);
+  background: linear-gradient(135deg, #A5BEE4 0%, #C8D7F0 60%, #DDE9F8 100%);
   padding: 28px 20px 76px;
   position: relative;
   overflow: hidden;
@@ -14,7 +14,7 @@
   content: '';
   position: absolute;
   border-radius: 50%;
-  background: rgba(255,255,255,0.07);
+  background: rgba(0,0,0,0.05);
 }
 .water-header::before { width: 140px; height: 140px; top: -60px; right: -30px; }
 .water-header::after  { width: 90px;  height: 90px;  bottom: -40px; right: 60px; }
@@ -22,7 +22,7 @@
 .water-title {
   font-size: 22px;
   font-weight: 800;
-  color: #fff;
+  color: #1A2A52;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -30,7 +30,7 @@
 }
 .water-sub {
   font-size: 13px;
-  color: rgba(255,255,255,0.75);
+  color: rgba(26,42,82,0.65);
 }
 
 /* ─── Calc card ─── */

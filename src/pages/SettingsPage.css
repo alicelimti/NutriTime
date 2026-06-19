@@ -3,7 +3,7 @@
 }
 
 .settings-header {
-  background: linear-gradient(135deg, #4A5A28 0%, #6A7A40 60%, #8A9A60 100%);
+  background: linear-gradient(135deg, #EAE4D6 0%, #F1EBE0 60%, #F9F7F2 100%);
   padding: 28px 20px 76px;
   position: relative;
   overflow: hidden;
@@ -14,14 +14,14 @@
   position: absolute;
   width: 120px; height: 120px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.07);
+  background: rgba(0,0,0,0.05);
   bottom: -50px; right: -20px;
 }
 
 .settings-title {
   font-size: 22px;
   font-weight: 800;
-  color: var(--white);
+  color: #2E2820;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -30,7 +30,7 @@
 
 .settings-sub {
   font-size: 13px;
-  color: rgba(255,255,255,0.75);
+  color: rgba(46,40,32,0.60);
 }
 
 .settings-section {

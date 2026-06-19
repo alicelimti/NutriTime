@@ -3,7 +3,7 @@
 }
 
 .medication-header {
-  background: linear-gradient(135deg, #A85C28 0%, #C47840 60%, #E09A60 100%);
+  background: linear-gradient(135deg, #80C4AF 0%, #A8D5C4 60%, #C8E8DF 100%);
   padding: 28px 20px 24px;
   position: relative;
   overflow: hidden;
@@ -14,7 +14,7 @@
   content: '';
   position: absolute;
   border-radius: 50%;
-  background: rgba(255,255,255,0.07);
+  background: rgba(0,0,0,0.05);
 }
 .medication-header::before {
   width: 140px; height: 140px;
@@ -28,7 +28,7 @@
 .medication-title {
   font-size: 22px;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #1A3D34;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -37,12 +37,12 @@
 
 .medication-sub {
   font-size: 13px;
-  color: rgba(255,255,255,0.75);
+  color: rgba(26,61,52,0.70);
   margin-bottom: 16px;
 }
 
 .medication-search {
-  background: rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.07);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -54,13 +54,13 @@
   background: none;
   border: none;
   outline: none;
-  color: #FFFFFF;
+  color: #1A3D34;
   font-size: 14px;
   width: 100%;
 }
 
 .medication-search input::placeholder {
-  color: rgba(255,255,255,0.6);
+  color: rgba(26,61,52,0.45);
 }
 
 .medication-count {
