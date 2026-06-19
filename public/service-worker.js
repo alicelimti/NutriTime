@@ -1,9 +1,9 @@
-const CACHE_NAME = 'nutritime-v3'
+const CACHE_NAME = 'nutritime-v4'
 
-// ── Install: 캐시 초기화만 (index.html은 캐시하지 않음) ──
+// ── Install: skipWaiting 제거 → 사용자 확인 후 활성화 ──
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(() => { /* 사용자 확인 전까지 대기 */ })
   )
 })
 
@@ -18,19 +18,23 @@ self.addEventListener('activate', event => {
   )
 })
 
+// ── Message: 앱에서 SKIP_WAITING 요청 수신 시 즉시 활성화 ──
+self.addEventListener('message', event => {
+  if (event.data?.type === 'SKIP_WAITING') {
+    self.skipWaiting()
+  }
+})
+
 // ── Fetch ──
 self.addEventListener('fetch', event => {
   const { request } = event
   const url = new URL(request.url)
 
   if (request.method !== 'GET') return
-
-  // 외부 API는 SW 통과
   if (url.hostname.includes('supabase.co')) return
   if (url.hostname.includes('google.com') || url.hostname.includes('accounts.google')) return
 
-  // HTML 네비게이션 요청(index.html): 항상 네트워크 우선
-  // → 새 배포 후에도 최신 index.html을 받아 새 asset 해시를 참조하게 함
+  // HTML 네비게이션: 항상 네트워크 우선
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request).catch(() => caches.match(request))
@@ -38,7 +42,7 @@ self.addEventListener('fetch', event => {
     return
   }
 
-  // 해시된 정적 자산(JS/CSS): 캐시 우선 (URL 해시가 바뀌면 새 파일로 인식)
+  // 해시된 정적 자산: 캐시 우선
   if (url.pathname.includes('/assets/')) {
     event.respondWith(
       caches.match(request).then(cached => {

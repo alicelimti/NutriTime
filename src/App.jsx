@@ -6,6 +6,7 @@ import WaterPage from './pages/WaterPage'
 import SchedulePage from './pages/SchedulePage'
 import SettingsPage from './pages/SettingsPage'
 import NavBar from './components/NavBar'
+import UpdateBanner from './components/UpdateBanner'
 import './App.css'
 
 const DEFAULT_MY_SUPPLEMENTS = {
@@ -45,6 +46,7 @@ function loadChecked() {
 export default function App() {
   const [user, setUser] = useState(null)
   const [tab, setTab] = useState('library')
+  const [swReg, setSwReg] = useState(null)
 
   const [mySupplements, setMySupplements] = useState(() => {
     try { return JSON.parse(localStorage.getItem('mySupplements')) || DEFAULT_MY_SUPPLEMENTS }
@@ -72,6 +74,12 @@ export default function App() {
   })
 
   const [todayChecked, setTodayChecked] = useState(loadChecked)
+
+  useEffect(() => {
+    const handler = e => setSwReg(e.detail)
+    window.addEventListener('swUpdateAvailable', handler)
+    return () => window.removeEventListener('swUpdateAvailable', handler)
+  }, [])
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -172,6 +180,7 @@ export default function App() {
 
   return (
     <div className="app">
+      {swReg && <UpdateBanner reg={swReg} onDismiss={() => setSwReg(null)} />}
       <div className="page-content">
         {tab === 'library'  && <LibraryPage  {...sharedProps} customSupplements={customSupplements} addCustomSupplement={addCustomSupplement} deleteCustomSupplement={deleteCustomSupplement} />}
         {tab === 'meds'     && <MedicationPage myMedications={myMedications} isInMedSchedule={isInMedSchedule} toggleMedication={toggleMedication} customMedications={customMedications} addCustomMedication={addCustomMedication} deleteCustomMedication={deleteCustomMedication} />}

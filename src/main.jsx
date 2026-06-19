@@ -3,12 +3,36 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-// Service Worker 등록
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
       .register('/NutriTime/service-worker.js', { scope: '/NutriTime/' })
+      .then(reg => {
+        // 이미 대기 중인 SW가 있으면 즉시 이벤트 발행
+        if (reg.waiting && navigator.serviceWorker.controller) {
+          window.dispatchEvent(new CustomEvent('swUpdateAvailable', { detail: reg }))
+        }
+
+        // 새 SW 설치 감지
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              window.dispatchEvent(new CustomEvent('swUpdateAvailable', { detail: reg }))
+            }
+          })
+        })
+      })
       .catch(err => console.warn('SW registration failed:', err))
+
+    // SKIP_WAITING 후 새 SW가 control 하면 페이지 리로드
+    let refreshing = false
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) {
+        refreshing = true
+        window.location.reload()
+      }
+    })
   })
 }
 
