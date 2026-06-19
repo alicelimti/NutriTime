@@ -6,15 +6,12 @@ const TABS = [
   { id: 'water',    label: '음수량',  icon: '💧' },
   { id: 'schedule', label: '내 일정', icon: '📋' },
   { id: 'settings', label: '설정',    icon: '⚙️' },
+  { id: 'my',       label: 'My',      icon: '👤' },
 ]
 
-export default function NavBar({ tab, setTab, goHome }) {
+export default function NavBar({ tab, setTab }) {
   return (
     <nav className="navbar">
-      <button className="navbar-item navbar-home" onClick={goHome}>
-        <span className="navbar-icon">🏠</span>
-        <span className="navbar-label">홈</span>
-      </button>
       {TABS.map(t => (
         <button
           key={t.id}
