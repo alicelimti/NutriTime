@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
-import LibraryPage from './pages/LibraryPage'
+import { supabase } from './supabaseClient'
+import LoginPage from './pages/LoginPage'
+import MainPage from './pages/MainPage'
 import MedicationPage from './pages/MedicationPage'
+import SupplementPage from './pages/SupplementPage'
+import MyPage from './pages/MyPage'
 import WaterPage from './pages/WaterPage'
-import SchedulePage from './pages/SchedulePage'
 import SettingsPage from './pages/SettingsPage'
 import NavBar from './components/NavBar'
 import './App.css'
@@ -42,7 +45,8 @@ function loadChecked() {
 }
 
 export default function App() {
-  const [tab, setTab] = useState('library')
+  const [user, setUser] = useState(undefined) // undefined = 로딩 중, null = 미로그인
+  const [tab, setTab] = useState('main')
 
   const [mySupplements, setMySupplements] = useState(() => {
     try { return JSON.parse(localStorage.getItem('mySupplements')) || DEFAULT_MY_SUPPLEMENTS }
@@ -70,6 +74,16 @@ export default function App() {
   })
 
   const [todayChecked, setTodayChecked] = useState(loadChecked)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('mySupplements', JSON.stringify(mySupplements))
@@ -158,16 +172,32 @@ export default function App() {
 
   const sharedProps = { mySupplements, settings, todayChecked, toggleSupplement, isInSchedule, toggleCheck }
 
+  if (user === undefined) {
+    return (
+      <div style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f0ff' }}>
+        <span style={{ fontSize: 40 }}>💊</span>
+      </div>
+    )
+  }
+
+  if (user === null) {
+    return <LoginPage />
+  }
+
+  if (tab === 'main') {
+    return <MainPage user={user} setTab={setTab} />
+  }
+
   return (
     <div className="app">
       <div className="page-content">
-        {tab === 'library'  && <LibraryPage  {...sharedProps} customSupplements={customSupplements} addCustomSupplement={addCustomSupplement} deleteCustomSupplement={deleteCustomSupplement} />}
-        {tab === 'meds'     && <MedicationPage myMedications={myMedications} isInMedSchedule={isInMedSchedule} toggleMedication={toggleMedication} customMedications={customMedications} addCustomMedication={addCustomMedication} deleteCustomMedication={deleteCustomMedication} />}
+        {tab === 'meds'     && <MedicationPage user={user} />}
+        {tab === 'library'  && <SupplementPage user={user} />}
+        {tab === 'schedule' && <MyPage user={user} />}
         {tab === 'water'    && <WaterPage />}
-        {tab === 'schedule' && <SchedulePage {...sharedProps} myMedications={myMedications} toggleMedication={toggleMedication} customSupplements={customSupplements} customMedications={customMedications} setSettings={setSettings} />}
         {tab === 'settings' && <SettingsPage settings={settings} setSettings={setSettings} />}
       </div>
-      <NavBar tab={tab} setTab={setTab} />
+      <NavBar tab={tab} setTab={setTab} goHome={() => setTab('main')} />
     </div>
   )
 }

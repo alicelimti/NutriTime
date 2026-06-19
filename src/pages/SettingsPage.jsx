@@ -1,3 +1,4 @@
+import { signOut } from '../services/authService'
 import './SettingsPage.css'
 
 const TIME_SETTINGS = [
@@ -9,6 +10,10 @@ const TIME_SETTINGS = [
 ]
 
 export default function SettingsPage({ settings, setSettings }) {
+  const handleSignOut = async () => {
+    try { await signOut() } catch (err) { console.error(err) }
+  }
+
   const handleChange = (key, value) => {
     setSettings(prev => ({ ...prev, [key]: value }))
   }
@@ -88,8 +93,22 @@ export default function SettingsPage({ settings, setSettings }) {
         </p>
       </div>
 
-      <div className="settings-version">
-        NutriTime v1.0 · 영양제 복용 도우미
+      <div className="settings-section">
+        <div className="settings-section-title">
+          <span>ℹ️</span> 앱 정보
+        </div>
+        <div className="settings-row">
+          <div className="settings-row-label">
+            <span className="settings-row-emoji">💊</span>
+            <div>
+              <div>NutriTime</div>
+              <div className="settings-row-desc">v1.0 · 영양제 복용 도우미</div>
+            </div>
+          </div>
+        </div>
+        <button className="settings-signout-btn" onClick={handleSignOut}>
+          로그아웃
+        </button>
       </div>
     </div>
   )

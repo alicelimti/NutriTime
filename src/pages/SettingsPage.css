@@ -187,3 +187,13 @@
   color: var(--text-muted);
   padding: 24px 0 0;
 }
+
+.settings-signout-btn {
+  width: 100%; margin-top: 16px;
+  padding: 14px;
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 14px; font-size: 15px; font-weight: 600;
+  color: #ef4444; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.settings-signout-btn:hover { background: #fff1f1; border-color: #fca5a5; }

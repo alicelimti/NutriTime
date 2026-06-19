@@ -8,9 +8,13 @@ const TABS = [
   { id: 'settings', label: '설정',    icon: '⚙️' },
 ]
 
-export default function NavBar({ tab, setTab }) {
+export default function NavBar({ tab, setTab, goHome }) {
   return (
     <nav className="navbar">
+      <button className="navbar-item navbar-home" onClick={goHome}>
+        <span className="navbar-icon">🏠</span>
+        <span className="navbar-label">홈</span>
+      </button>
       {TABS.map(t => (
         <button
           key={t.id}

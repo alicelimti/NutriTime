@@ -1,0 +1,33 @@
+.supp-page { padding-bottom: 20px; }
+
+.supp-header {
+  background: linear-gradient(135deg, #EBC776 0%, #F5D99D 60%, #FAE9C0 100%);
+  padding: 28px 20px 76px;
+  position: relative; overflow: hidden;
+}
+.supp-header-deco {
+  position: absolute;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.05);
+  top: -70px; right: -40px;
+}
+.supp-title {
+  font-size: 22px; font-weight: 800;
+  color: #6B4800;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px;
+}
+.supp-sub { font-size: 13px; color: rgba(107,72,0,0.65); margin-bottom: 16px; }
+
+.supp-progress-bar {
+  height: 6px; background: rgba(0,0,0,0.1); border-radius: 99px; overflow: hidden;
+}
+.supp-progress-fill {
+  height: 100%; background: #6B4800;
+  border-radius: 99px; transition: width 0.4s ease;
+}
+
+.supp-content { padding: 16px 16px 0; }
+
+.page-add-input:focus { border-color: #F5D99D; }

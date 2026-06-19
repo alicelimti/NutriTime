@@ -1,0 +1,141 @@
+.login-container {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #f5f0ff 0%, #e8f4fd 50%, #f0faf5 100%);
+  padding: 24px;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 28px;
+  padding: 48px 36px 36px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Hero */
+.login-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.login-icon {
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.login-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.login-subtitle {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Features */
+.login-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f8f9ff;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.login-feature {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Actions */
+.login-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 24px;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.login-google-btn:hover:not(:disabled) {
+  border-color: #4285F4;
+  box-shadow: 0 4px 16px rgba(66, 133, 244, 0.2);
+  transform: translateY(-1px);
+}
+
+.login-google-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-google-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.google-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.login-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #4285F4;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.login-error {
+  font-size: 13px;
+  color: #ef4444;
+  text-align: center;
+  margin: 0;
+}
+
+/* Footer */
+.login-footer {
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
