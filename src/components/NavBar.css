@@ -11,7 +11,9 @@
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  height: var(--nav-height);
+  /* 콘텐츠 62px + iOS 홈 인디케이터 safe area */
+  height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   background: #ffffff;
   border-top: 1.5px solid #D8EDBB;
   display: flex;
@@ -31,7 +33,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10px 0 12px;
+  padding: 0;
   transition: color 0.18s;
 }
 

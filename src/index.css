@@ -16,7 +16,7 @@
   --shadow-lg: 0 4px 24px rgba(74, 158, 38, 0.18);
   --radius: 14px;
   --radius-sm: 8px;
-  --nav-height: 80px;
+  --nav-height: 62px;
 }
 
 *, *::before, *::after {

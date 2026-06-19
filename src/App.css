@@ -13,6 +13,6 @@
 .page-content {
   flex: 1 1 auto;
   overflow-y: auto;
-  padding-bottom: calc(var(--nav-height) + 8px);
+  padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px) + 8px);
   min-height: 0;
 }
