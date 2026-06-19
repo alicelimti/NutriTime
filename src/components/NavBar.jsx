@@ -6,7 +6,6 @@ const TABS = [
   { id: 'water',    label: '음수량',  icon: '💧' },
   { id: 'schedule', label: '내 일정', icon: '📋' },
   { id: 'settings', label: '설정',    icon: '⚙️' },
-  { id: 'my',       label: 'My',      icon: '👤' },
 ]
 
 export default function NavBar({ tab, setTab }) {

@@ -5,7 +5,6 @@ import MedicationPage from './pages/MedicationPage'
 import WaterPage from './pages/WaterPage'
 import SchedulePage from './pages/SchedulePage'
 import SettingsPage from './pages/SettingsPage'
-import MyPage from './pages/MyPage'
 import NavBar from './components/NavBar'
 import './App.css'
 
@@ -178,8 +177,7 @@ export default function App() {
         {tab === 'meds'     && <MedicationPage myMedications={myMedications} isInMedSchedule={isInMedSchedule} toggleMedication={toggleMedication} customMedications={customMedications} addCustomMedication={addCustomMedication} deleteCustomMedication={deleteCustomMedication} />}
         {tab === 'water'    && <WaterPage />}
         {tab === 'schedule' && <SchedulePage {...sharedProps} myMedications={myMedications} toggleMedication={toggleMedication} customSupplements={customSupplements} customMedications={customMedications} setSettings={setSettings} />}
-        {tab === 'settings' && <SettingsPage settings={settings} setSettings={setSettings} />}
-        {tab === 'my'       && <MyPage user={user} />}
+        {tab === 'settings' && <SettingsPage settings={settings} setSettings={setSettings} user={user} />}
       </div>
       <NavBar tab={tab} setTab={setTab} />
     </div>
