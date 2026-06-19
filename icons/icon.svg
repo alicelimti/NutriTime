@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background rounded square -->
+  <rect width="512" height="512" rx="112" fill="#22c55e"/>
+  <!-- Pill capsule body -->
+  <rect x="104" y="186" width="304" height="140" rx="70" fill="white" opacity="0.95"/>
+  <!-- Left half tint -->
+  <rect x="104" y="186" width="152" height="140" rx="70" fill="white" opacity="0.3"/>
+  <!-- Divider line -->
+  <rect x="254" y="194" width="4" height="124" rx="2" fill="rgba(34,197,94,0.4)"/>
+  <!-- NT letters -->
+  <text x="181" y="278" font-size="76" font-weight="900"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        fill="#16a34a" text-anchor="middle" dominant-baseline="middle">N</text>
+  <text x="331" y="278" font-size="76" font-weight="900"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        fill="#15803d" text-anchor="middle" dominant-baseline="middle">T</text>
+</svg>
