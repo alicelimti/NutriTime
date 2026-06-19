@@ -4,7 +4,7 @@
 
 .medication-header {
   background: linear-gradient(135deg, #80C4AF 0%, #A8D5C4 60%, #C8E8DF 100%);
-  padding: 28px 20px 50px;
+  padding: 28px 20px 28px;
   position: relative;
   overflow: hidden;
 }

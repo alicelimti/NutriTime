@@ -4,7 +4,7 @@
 
 .library-header {
   background: linear-gradient(135deg, #EBC776 0%, #F5D99D 60%, #FAE9C0 100%);
-  padding: 28px 20px 50px;
+  padding: 28px 20px 28px;
   position: relative;
   overflow: hidden;
 }
