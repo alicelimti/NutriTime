@@ -10,14 +10,10 @@ export default function MedicationPage({
   myMedications, isInMedSchedule, toggleMedication,
   customMedications, addCustomMedication, deleteCustomMedication,
 }) {
-  const [search, setSearch]           = useState('')
   const [selected, setSelected]       = useState(null)
   const [showAddForm, setShowAddForm] = useState(false)
 
   const allMedications = [...MEDICATIONS, ...customMedications]
-  const filtered = allMedications.filter(m =>
-    m.name.includes(search) || m.effect.includes(search)
-  )
 
   const handleToggle = (groupId, medId, currentGroup) => {
     if (currentGroup === groupId) {
@@ -35,23 +31,14 @@ export default function MedicationPage({
           <span>💉</span> 복용약 라이브러리
         </h1>
         <p className="medication-sub">약을 탭하면 복용법과 주의사항을 확인할 수 있어요</p>
-        <div className="medication-search">
-          <span className="search-icon">🔍</span>
-          <input
-            type="text"
-            placeholder="약 이름 또는 효능 검색"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-        </div>
       </div>
 
       <div className="medication-count">
-        총 {filtered.length}종
+        총 {allMedications.length}종
       </div>
 
       <div className="supplement-grid">
-        {filtered.map(med => {
+        {allMedications.map(med => {
           const added = isInMedSchedule(med.id)
           return (
             <div

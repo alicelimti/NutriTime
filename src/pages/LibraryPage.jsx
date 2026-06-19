@@ -10,14 +10,10 @@ export default function LibraryPage({
   mySupplements, isInSchedule, toggleSupplement,
   customSupplements, addCustomSupplement, deleteCustomSupplement,
 }) {
-  const [search, setSearch]       = useState('')
   const [selected, setSelected]   = useState(null)
   const [showAddForm, setShowAddForm] = useState(false)
 
   const allSupplements = [...SUPPLEMENTS, ...customSupplements]
-  const filtered = allSupplements.filter(s =>
-    s.name.includes(search) || s.effect.includes(search)
-  )
 
   const handleToggle = (groupId, suppId, currentGroup) => {
     if (currentGroup === groupId) {
@@ -35,23 +31,14 @@ export default function LibraryPage({
           <span>🌿</span> 영양제 라이브러리
         </h1>
         <p className="library-sub">영양제를 탭하면 상세 정보를 확인할 수 있어요</p>
-        <div className="library-search">
-          <span className="search-icon">🔍</span>
-          <input
-            type="text"
-            placeholder="영양제 이름 또는 효능 검색"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-        </div>
       </div>
 
       <div className="library-count">
-        총 {filtered.length}종
+        총 {allSupplements.length}종
       </div>
 
       <div className="supplement-grid">
-        {filtered.map(supp => {
+        {allSupplements.map(supp => {
           const added = isInSchedule(supp.id)
           return (
             <div
