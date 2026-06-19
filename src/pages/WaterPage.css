@@ -5,7 +5,7 @@
 /* ─── Header ─── */
 .water-header {
   background: linear-gradient(135deg, #0D47A1 0%, #1976D2 60%, #42A5F5 100%);
-  padding: 28px 20px 24px;
+  padding: 28px 20px 76px;
   position: relative;
   overflow: hidden;
 }

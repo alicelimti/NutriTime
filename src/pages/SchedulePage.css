@@ -4,7 +4,7 @@
 
 .schedule-header {
   background: linear-gradient(135deg, #1A6860 0%, #2A8878 60%, #48AEA0 100%);
-  padding: 28px 20px 24px;
+  padding: 28px 20px 50px;
   position: relative;
   overflow: hidden;
 }
