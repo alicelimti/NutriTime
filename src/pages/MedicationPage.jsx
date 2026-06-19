@@ -1,160 +1,120 @@
-import { useState, useEffect } from 'react'
-import {
-  getMedications, addMedication, removeMedication,
-  logMedicationIntake, getMedicationLogs, deleteMedicationLog,
-} from '../services/medicationService'
+import { useState } from 'react'
+import { MEDICATIONS } from '../data/medications'
+import MedicationModal from '../components/MedicationModal'
+import CustomAddModal from '../components/CustomAddModal'
 import './MedicationPage.css'
 
-export default function MedicationPage({ user }) {
-  const [medications, setMedications] = useState([])
-  const [todayLogs, setTodayLogs] = useState({}) // { medication_id: log_id }
-  const [loading, setLoading]     = useState(true)
-  const [error, setError]         = useState(null)
-  const [newName, setNewName]     = useState('')
-  const [submitting, setSubmitting] = useState(false)
+const CUSTOM_CARD = { id: '__add__', name: '직접 추가', emoji: '✏️', effect: '나만의 복용약을 추가하세요' }
 
-  const today = new Date()
+export default function MedicationPage({
+  myMedications, isInMedSchedule, toggleMedication,
+  customMedications, addCustomMedication, deleteCustomMedication,
+}) {
+  const [search, setSearch]           = useState('')
+  const [selected, setSelected]       = useState(null)
+  const [showAddForm, setShowAddForm] = useState(false)
 
-  const load = async () => {
-    try {
-      setLoading(true)
-      setError(null)
-      const [meds, logs] = await Promise.all([
-        getMedications(user.id),
-        getMedicationLogs(user.id, today),
-      ])
-      setMedications(meds)
-      const logMap = {}
-      logs.forEach(l => { logMap[l.medication_id] = l.id })
-      setTodayLogs(logMap)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
+  const allMedications = [...MEDICATIONS, ...customMedications]
+  const filtered = allMedications.filter(m =>
+    m.name.includes(search) || m.effect.includes(search)
+  )
+
+  const handleToggle = (groupId, medId, currentGroup) => {
+    if (currentGroup === groupId) {
+      toggleMedication(currentGroup, medId)
+    } else {
+      if (currentGroup) toggleMedication(currentGroup, medId)
+      toggleMedication(groupId, medId)
     }
   }
-
-  useEffect(() => { load() }, [])
-
-  const handleAdd = async (e) => {
-    e.preventDefault()
-    if (!newName.trim()) return
-    setSubmitting(true)
-    setError(null)
-    try {
-      const med = {
-        id: `custom_${Date.now()}`,
-        name: newName.trim(),
-        emoji: '💊',
-        defaultGroup: 'morning',
-      }
-      const created = await addMedication(user.id, med)
-      setMedications(prev => [...prev, created])
-      setNewName('')
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setSubmitting(false)
-    }
-  }
-
-  const handleToggleLog = async (medicationId) => {
-    const existingLogId = todayLogs[medicationId]
-    try {
-      if (existingLogId) {
-        await deleteMedicationLog(existingLogId)
-        setTodayLogs(prev => { const n = { ...prev }; delete n[medicationId]; return n })
-      } else {
-        const log = await logMedicationIntake(user.id, medicationId, today)
-        setTodayLogs(prev => ({ ...prev, [medicationId]: log.id }))
-      }
-    } catch (err) {
-      setError(err.message)
-    }
-  }
-
-  const handleDelete = async (medicationId) => {
-    try {
-      await removeMedication(user.id, medicationId)
-      setMedications(prev => prev.filter(m => m.medication_id !== medicationId))
-      setTodayLogs(prev => { const n = { ...prev }; delete n[medicationId]; return n })
-    } catch (err) {
-      setError(err.message)
-    }
-  }
-
-  const takenCount = Object.keys(todayLogs).length
 
   return (
-    <div className="med-page">
-      <div className="med-header">
-        <div className="med-header-deco" />
-        <h1 className="med-title"><span>💉</span> 복용약</h1>
-        <p className="med-sub">오늘 복용한 약을 체크하세요</p>
-        {!loading && medications.length > 0 && (
-          <div className="med-progress-bar">
-            <div
-              className="med-progress-fill"
-              style={{ width: `${(takenCount / medications.length) * 100}%` }}
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="med-content">
-        <form className="page-add-form" onSubmit={handleAdd}>
+    <div className="medication">
+      <div className="medication-header">
+        <h1 className="medication-title">
+          <span>💉</span> 복용약 라이브러리
+        </h1>
+        <p className="medication-sub">약을 탭하면 복용법과 주의사항을 확인할 수 있어요</p>
+        <div className="medication-search">
+          <span className="search-icon">🔍</span>
           <input
             type="text"
-            className="page-add-input"
-            placeholder="약 이름 입력 (예: 아스피린)"
-            value={newName}
-            onChange={e => setNewName(e.target.value)}
+            placeholder="약 이름 또는 효능 검색"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
           />
-          <button
-            type="submit"
-            className="page-add-btn mint"
-            disabled={submitting || !newName.trim()}
-          >
-            {submitting ? '…' : '추가'}
-          </button>
-        </form>
-
-        {error && <div className="page-error">⚠️ {error}</div>}
-
-        {loading ? (
-          <div className="page-loading"><span className="spin">💊</span> 불러오는 중…</div>
-        ) : medications.length === 0 ? (
-          <div className="page-empty">
-            <span>💉</span>
-            <p>등록된 복용약이 없어요<br />위에서 추가해보세요</p>
-          </div>
-        ) : (
-          <>
-            <p className="page-count">{takenCount} / {medications.length} 복용 완료</p>
-            <div className="page-list">
-              {medications.map(med => {
-                const taken = !!todayLogs[med.medication_id]
-                return (
-                  <div key={med.id} className={`page-item${taken ? ' taken' : ''}`}>
-                    <button
-                      className={`page-check${taken ? ' checked mint' : ''}`}
-                      onClick={() => handleToggleLog(med.medication_id)}
-                    >
-                      {taken ? '✓' : ''}
-                    </button>
-                    <span className="page-item-emoji">{med.emoji || '💊'}</span>
-                    <span className={`page-item-name${taken ? ' striked' : ''}`}>{med.name}</span>
-                    <button
-                      className="page-delete-btn"
-                      onClick={() => handleDelete(med.medication_id)}
-                    >✕</button>
-                  </div>
-                )
-              })}
-            </div>
-          </>
-        )}
+        </div>
       </div>
+
+      <div className="medication-count">
+        총 {filtered.length}종
+      </div>
+
+      <div className="supplement-grid">
+        {filtered.map(med => {
+          const added = isInMedSchedule(med.id)
+          return (
+            <div
+              key={med.id}
+              className={`supp-card${added ? ' added' : ''}`}
+              onClick={() => setSelected(med)}
+            >
+              <div className="supp-emoji">{med.emoji}</div>
+              <div className="supp-name">{med.name}</div>
+              <div className="supp-effect">{med.effect}</div>
+              <button
+                className={`supp-add-btn${added ? ' added' : ''}`}
+                onClick={e => {
+                  e.stopPropagation()
+                  if (added) {
+                    const group = Object.entries(myMedications).find(([, ids]) =>
+                      ids.includes(med.id)
+                    )?.[0]
+                    if (group) toggleMedication(group, med.id)
+                  } else {
+                    toggleMedication(med.defaultGroup, med.id)
+                  }
+                }}
+              >
+                {added ? '✓' : '+'}
+              </button>
+            </div>
+          )
+        })}
+
+        <div
+          className="supp-card add-custom-card"
+          onClick={() => setShowAddForm(true)}
+        >
+          <div className="supp-emoji">{CUSTOM_CARD.emoji}</div>
+          <div className="supp-name">{CUSTOM_CARD.name}</div>
+          <div className="supp-effect">{CUSTOM_CARD.effect}</div>
+          <button
+            className="supp-add-btn"
+            onClick={e => { e.stopPropagation(); setShowAddForm(true) }}
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      {selected && (
+        <MedicationModal
+          med={selected}
+          myMedications={myMedications}
+          onToggle={handleToggle}
+          onClose={() => setSelected(null)}
+          onDelete={selected.isCustom ? (id) => { deleteCustomMedication(id) } : undefined}
+        />
+      )}
+
+      {showAddForm && (
+        <CustomAddModal
+          type="medication"
+          onAdd={addCustomMedication}
+          onClose={() => setShowAddForm(false)}
+        />
+      )}
     </div>
   )
 }

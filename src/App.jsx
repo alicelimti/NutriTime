@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
+import LibraryPage from './pages/LibraryPage'
 import MedicationPage from './pages/MedicationPage'
-import SupplementPage from './pages/SupplementPage'
-import MyPage from './pages/MyPage'
 import WaterPage from './pages/WaterPage'
+import SchedulePage from './pages/SchedulePage'
 import SettingsPage from './pages/SettingsPage'
 import NavBar from './components/NavBar'
 import './App.css'
@@ -191,10 +191,10 @@ export default function App() {
   return (
     <div className="app">
       <div className="page-content">
-        {tab === 'meds'     && <MedicationPage user={user} />}
-        {tab === 'library'  && <SupplementPage user={user} />}
-        {tab === 'schedule' && <MyPage user={user} />}
+        {tab === 'library'  && <LibraryPage  {...sharedProps} customSupplements={customSupplements} addCustomSupplement={addCustomSupplement} deleteCustomSupplement={deleteCustomSupplement} />}
+        {tab === 'meds'     && <MedicationPage myMedications={myMedications} isInMedSchedule={isInMedSchedule} toggleMedication={toggleMedication} customMedications={customMedications} addCustomMedication={addCustomMedication} deleteCustomMedication={deleteCustomMedication} />}
         {tab === 'water'    && <WaterPage />}
+        {tab === 'schedule' && <SchedulePage {...sharedProps} myMedications={myMedications} toggleMedication={toggleMedication} customSupplements={customSupplements} customMedications={customMedications} setSettings={setSettings} />}
         {tab === 'settings' && <SettingsPage settings={settings} setSettings={setSettings} />}
       </div>
       <NavBar tab={tab} setTab={setTab} goHome={() => setTab('main')} />
