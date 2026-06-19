@@ -1,3 +1,9 @@
+/* 스와치 3색:
+   비활성 아이콘 #B5D98A (세이지 그린)
+   활성 아이콘  #4A8E22 (짙은 그린)
+   배경/라이트  #F3FFF0 (라이트 민트)
+*/
+
 .navbar {
   position: fixed;
   bottom: 0;
@@ -6,11 +12,11 @@
   width: 100%;
   max-width: 480px;
   height: var(--nav-height);
-  background: var(--white);
-  border-top: 1px solid var(--border);
+  background: #ffffff;
+  border-top: 1.5px solid #D8EDBB;
   display: flex;
   align-items: stretch;
-  box-shadow: 0 -4px 16px rgba(74, 158, 38, 0.10);
+  box-shadow: 0 -2px 12px rgba(74, 142, 34, 0.08);
   z-index: 100;
 }
 
@@ -20,24 +26,41 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  color: var(--text-muted);
-  transition: color 0.2s;
+  gap: 5px;
+  color: #B5D98A;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 0 12px;
+  transition: color 0.18s;
 }
 
 .navbar-item.active {
-  color: var(--primary);
+  color: #4A8E22;
 }
 
 .navbar-icon {
-  font-size: 26px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+}
+
+.navbar-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.navbar-item.active .navbar-icon svg {
+  stroke-width: 2.3;
 }
 
 .navbar-label {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
+  color: inherit;
 }
 
 .navbar-item.active .navbar-label {
