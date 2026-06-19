@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nutritime-v1'
+const CACHE_NAME = 'nutritime-v2'
 
 const PRECACHE_URLS = [
   '/NutriTime/',
