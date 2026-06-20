@@ -43,7 +43,7 @@ export default function WaterPage() {
     <div className="water-page">
       <div className="water-header">
         <h1 className="water-title"><span>💧</span> 오늘의 음수량</h1>
-        <p className="water-sub">권장 음수량을 추적하세요</p>
+        <p className="water-sub">커피도 좋지만 물도 마시자</p>
       </div>
 
       <div className="water-calc-card">

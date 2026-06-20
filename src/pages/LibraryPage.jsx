@@ -30,7 +30,7 @@ export default function LibraryPage({
         <h1 className="library-title">
           <span>🌿</span> 영양제 라이브러리
         </h1>
-        <p className="library-sub">영양제를 탭하면 상세 정보를 확인할 수 있어요</p>
+        <p className="library-sub">오늘보다 내일 더 건강해지세요</p>
       </div>
 
       <div className="library-count">
