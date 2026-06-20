@@ -1,4 +1,6 @@
 import { signInWithGoogle, signOut } from '../services/authService'
+import KakaoLoginButton from '../components/KakaoLoginButton'
+import NotificationPanel from '../components/NotificationPanel'
 import './SettingsPage.css'
 
 const TIME_SETTINGS = [
@@ -77,6 +79,15 @@ export default function SettingsPage({ settings, setSettings, user }) {
             <input type="checkbox" disabled />
             <span className="toggle-slider" />
           </label>
+        </div>
+      </div>
+
+      {/* 카카오 연동 */}
+      <div className="settings-section">
+        <div className="settings-section-title"><span>🍯</span> 카카오 연동</div>
+        <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <KakaoLoginButton />
+          <NotificationPanel />
         </div>
       </div>
 
