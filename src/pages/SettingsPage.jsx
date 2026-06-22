@@ -87,15 +87,6 @@ export default function SettingsPage({ settings, setSettings, user }) {
           </>
         ) : (
           <>
-            <div className="settings-row">
-              <div className="settings-row-label">
-                <span className="settings-row-emoji">☁️</span>
-                <div>
-                  <div>클라우드 저장</div>
-                  <div className="settings-row-desc">로그인하면 모든 기기에서 동기화</div>
-                </div>
-              </div>
-            </div>
             <button className="settings-google-btn" onClick={handleLogin}>
               <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
