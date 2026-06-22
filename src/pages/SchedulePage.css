@@ -162,7 +162,11 @@
 }
 
 .schedule-supp.checked {
-  opacity: 0.5;
+  background: #F0FEE8;
+}
+
+.schedule-supp.checked .schedule-supp-name {
+  color: var(--text-secondary);
 }
 
 .check-btn {
