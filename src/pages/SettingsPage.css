@@ -221,6 +221,36 @@
   border-radius: 20px; padding: 3px 8px; flex-shrink: 0;
 }
 
+.settings-account-sub {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 16px 4px;
+}
+
+.settings-account-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 16px;
+}
+
+.settings-kakao-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: calc(100% - 32px); margin: 4px 16px 16px; padding: 13px 20px;
+  background: #FEE500; border: 1.5px solid #E6CF00; border-radius: 14px;
+  font-size: 14px; font-weight: 600; color: #1a1a2e;
+  cursor: pointer; transition: all 0.15s;
+  box-shadow: 0 2px 6px rgba(254,229,0,0.3);
+}
+.settings-kakao-btn:hover {
+  background: #F5DC00;
+  box-shadow: 0 3px 12px rgba(254,229,0,0.5);
+  transform: translateY(-1px);
+}
+.settings-kakao-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
 .settings-google-btn {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   width: calc(100% - 32px); margin: 4px 16px 16px; padding: 13px 20px;
