@@ -253,7 +253,7 @@
 
 .settings-google-btn {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: calc(100% - 32px); margin: 4px 16px 16px; padding: 13px 20px;
+  width: calc(100% - 32px); margin: 16px 16px 16px; padding: 13px 20px;
   background: #fff; border: 1.5px solid #e5e7eb; border-radius: 14px;
   font-size: 14px; font-weight: 600; color: #1a1a2e;
   cursor: pointer; transition: all 0.15s;
