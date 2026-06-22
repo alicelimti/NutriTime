@@ -81,6 +81,7 @@ export default function SchedulePage({
                       key={id}
                       className={`schedule-supp${checked ? ' checked' : ''}`}
                       onClick={() => toggleCheck(id)}
+                      onTouchEnd={e => { e.preventDefault(); toggleCheck(id) }}
                     >
                       <div className={`check-btn${checked ? ' checked' : ''}`}>
                         {checked ? '✓' : ''}
@@ -89,6 +90,7 @@ export default function SchedulePage({
                       <span className="schedule-supp-name">{supp.name}</span>
                       <button
                         className="schedule-remove-btn"
+                        onTouchEnd={e => e.stopPropagation()}
                         onClick={e => { e.stopPropagation(); toggleSupplement(group.id, id) }}
                         title="제거"
                       >
@@ -107,6 +109,7 @@ export default function SchedulePage({
                       key={id}
                       className={`schedule-supp med-item${checked ? ' checked' : ''}`}
                       onClick={() => toggleCheck(id)}
+                      onTouchEnd={e => { e.preventDefault(); toggleCheck(id) }}
                     >
                       <div className={`check-btn${checked ? ' checked' : ''}`}>
                         {checked ? '✓' : ''}
@@ -118,6 +121,7 @@ export default function SchedulePage({
                       </span>
                       <button
                         className="schedule-remove-btn"
+                        onTouchEnd={e => e.stopPropagation()}
                         onClick={e => { e.stopPropagation(); toggleMedication(group.id, id) }}
                         title="제거"
                       >
