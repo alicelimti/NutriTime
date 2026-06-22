@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { supabase } from './supabaseClient'
 import LibraryPage from './pages/LibraryPage'
 import MedicationPage from './pages/MedicationPage'
@@ -84,6 +84,47 @@ export default function App() {
 
   const [todayChecked, setTodayChecked] = useState(loadChecked)
 
+  const cloudLoadedRef = useRef(false)
+
+  const syncToCloud = async (userId, data) => {
+    try {
+      await supabase.from('user_data').upsert({
+        user_id: userId,
+        my_supplements:    data.mySupplements,
+        my_medications:    data.myMedications,
+        custom_supplements: data.customSupplements,
+        custom_medications: data.customMedications,
+        settings:          data.settings,
+        updated_at:        new Date().toISOString(),
+      }, { onConflict: 'user_id' })
+    } catch (e) {
+      console.error('[NutriTime] sync failed:', e)
+    }
+  }
+
+  const loadFromCloud = async (userId, localData) => {
+    if (cloudLoadedRef.current) return
+    cloudLoadedRef.current = true
+    try {
+      const { data, error } = await supabase
+        .from('user_data').select('*').eq('user_id', userId).single()
+      if (error && error.code !== 'PGRST116') throw error
+      if (data) {
+        if (data.my_supplements)     setMySupplements(dedupGroups(data.my_supplements))
+        if (data.my_medications)     setMyMedications(dedupGroups(data.my_medications))
+        if (data.custom_supplements) setCustomSupplements(data.custom_supplements)
+        if (data.custom_medications) setCustomMedications(data.custom_medications)
+        if (data.settings)           setSettings(data.settings)
+      } else {
+        // 클라우드에 데이터 없음 → 현재 로컬 데이터를 저장
+        await syncToCloud(userId, localData)
+      }
+    } catch (e) {
+      console.error('[NutriTime] load failed:', e)
+      cloudLoadedRef.current = false
+    }
+  }
+
   useEffect(() => {
     const handler = e => setSwReg(e.detail)
     window.addEventListener('swUpdateAvailable', handler)
@@ -92,10 +133,20 @@ export default function App() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
+      const u = session?.user ?? null
+      setUser(u)
+      if (u) loadFromCloud(u.id, { mySupplements, myMedications, customSupplements, customMedications, settings })
     })
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      const u = session?.user ?? null
+      setUser(u)
+      if (event === 'SIGNED_IN') {
+        cloudLoadedRef.current = false
+        loadFromCloud(u.id, { mySupplements, myMedications, customSupplements, customMedications, settings })
+      }
+      if (event === 'SIGNED_OUT') {
+        cloudLoadedRef.current = false
+      }
     })
     return () => subscription.unsubscribe()
   }, [])
@@ -124,6 +175,15 @@ export default function App() {
     const today = new Date().toDateString()
     localStorage.setItem('todayChecked', JSON.stringify({ date: today, checked: todayChecked }))
   }, [todayChecked])
+
+  // 로그인 상태일 때 데이터 변경 2초 후 클라우드에 자동 저장
+  useEffect(() => {
+    if (!user) return
+    const timer = setTimeout(() => {
+      syncToCloud(user.id, { mySupplements, myMedications, customSupplements, customMedications, settings })
+    }, 2000)
+    return () => clearTimeout(timer)
+  }, [user, mySupplements, myMedications, customSupplements, customMedications, settings])
 
   const toggleSupplement = (groupId, suppId) => {
     setMySupplements(prev => {
