@@ -12,7 +12,7 @@ import './App.css'
 const DEFAULT_MY_SUPPLEMENTS = {
   wake:      ['vitd', 'probiotics'],
   morning:   ['omega3', 'vitc'],
-  afternoon: ['vitb', 'coq10'],
+  afternoon: ['vitb', 'propolis'],
   evening:   ['calcium', 'vite'],
   bedtime:   ['magnesium', 'melatonin'],
 }
