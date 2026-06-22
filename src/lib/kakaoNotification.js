@@ -17,21 +17,14 @@ export const initKakao = () => {
   return true;
 };
 
-// 2. Kakao 로그인
+// 2. Kakao 로그인 (팝업 방식 — Redirect URI 불필요, 콜백으로 즉시 토큰 수신)
 export const loginWithKakao = () => {
   return new Promise((resolve, reject) => {
-    window.Kakao.Auth.authorize({
-      redirectUri: window.location.href,
+    window.Kakao.Auth.login({
       scope: 'profile_nickname,account_email',
+      success: (authObj) => resolve(authObj.access_token),
+      fail: (err) => reject(new Error(err.error_description || 'Kakao login failed')),
     });
-
-    setTimeout(() => {
-      if (window.Kakao.Auth.getAccessToken()) {
-        resolve(window.Kakao.Auth.getAccessToken());
-      } else {
-        reject(new Error('Kakao login failed'));
-      }
-    }, 1000);
   });
 };
 
