@@ -33,6 +33,15 @@ const DEFAULT_SETTINGS = {
   bedtimeTime:   '22:30',
 }
 
+function dedupGroups(groupObj) {
+  const seen = new Set()
+  const result = {}
+  for (const [g, ids] of Object.entries(groupObj)) {
+    result[g] = ids.filter(id => { if (seen.has(id)) return false; seen.add(id); return true })
+  }
+  return result
+}
+
 function loadChecked() {
   const today = new Date().toDateString()
   try {
@@ -49,12 +58,12 @@ export default function App() {
   const [swReg, setSwReg] = useState(null)
 
   const [mySupplements, setMySupplements] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('mySupplements')) || DEFAULT_MY_SUPPLEMENTS }
+    try { return dedupGroups(JSON.parse(localStorage.getItem('mySupplements')) || DEFAULT_MY_SUPPLEMENTS) }
     catch { return DEFAULT_MY_SUPPLEMENTS }
   })
 
   const [myMedications, setMyMedications] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('myMedications')) || DEFAULT_MY_MEDICATIONS }
+    try { return dedupGroups(JSON.parse(localStorage.getItem('myMedications')) || DEFAULT_MY_MEDICATIONS) }
     catch { return DEFAULT_MY_MEDICATIONS }
   })
 
@@ -118,11 +127,18 @@ export default function App() {
 
   const toggleSupplement = (groupId, suppId) => {
     setMySupplements(prev => {
-      const group = prev[groupId] || []
-      const updated = group.includes(suppId)
-        ? group.filter(id => id !== suppId)
-        : [...group, suppId]
-      return { ...prev, [groupId]: updated }
+      const inTarget = (prev[groupId] || []).includes(suppId)
+      if (inTarget) {
+        return { ...prev, [groupId]: prev[groupId].filter(id => id !== suppId) }
+      }
+      const inOther = Object.values(prev).some(ids => ids.includes(suppId))
+      if (inOther) {
+        // Already in a different group — remove from all (✓ tap on library)
+        const next = {}
+        for (const [g, ids] of Object.entries(prev)) next[g] = ids.filter(id => id !== suppId)
+        return next
+      }
+      return { ...prev, [groupId]: [...(prev[groupId] || []), suppId] }
     })
   }
 
@@ -131,11 +147,17 @@ export default function App() {
 
   const toggleMedication = (groupId, medId) => {
     setMyMedications(prev => {
-      const group = prev[groupId] || []
-      const updated = group.includes(medId)
-        ? group.filter(id => id !== medId)
-        : [...group, medId]
-      return { ...prev, [groupId]: updated }
+      const inTarget = (prev[groupId] || []).includes(medId)
+      if (inTarget) {
+        return { ...prev, [groupId]: prev[groupId].filter(id => id !== medId) }
+      }
+      const inOther = Object.values(prev).some(ids => ids.includes(medId))
+      if (inOther) {
+        const next = {}
+        for (const [g, ids] of Object.entries(prev)) next[g] = ids.filter(id => id !== medId)
+        return next
+      }
+      return { ...prev, [groupId]: [...(prev[groupId] || []), medId] }
     })
   }
 

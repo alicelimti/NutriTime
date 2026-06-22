@@ -15,13 +15,13 @@ export default function SchedulePage({
     bedtime:   settings.bedtimeTime,
   }
 
-  const suppTotal = Object.values(mySupplements).reduce((s, ids) => s + ids.length, 0)
-  const medTotal  = Object.values(myMedications).reduce((s, ids) => s + ids.length, 0)
-  const totalCount   = suppTotal + medTotal
-  const checkedCount = todayChecked.length
-
   const getSupp = id => SUPPLEMENTS.find(s => s.id === id) || (customSupplements || []).find(s => s.id === id)
   const getMed  = id => MEDICATIONS.find(m => m.id === id) || (customMedications  || []).find(m => m.id === id)
+
+  const suppTotal = Object.values(mySupplements).reduce((s, ids) => s + ids.filter(id => getSupp(id)).length, 0)
+  const medTotal  = Object.values(myMedications).reduce((s, ids) => s + ids.filter(id => getMed(id)).length, 0)
+  const totalCount   = suppTotal + medTotal
+  const checkedCount = todayChecked.length
 
   return (
     <div className="schedule">
