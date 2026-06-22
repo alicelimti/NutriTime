@@ -77,18 +77,19 @@ export default function SchedulePage({
                   if (!supp) return null
                   const checked = todayChecked.includes(id)
                   return (
-                    <div key={id} className={`schedule-supp${checked ? ' checked' : ''}`}>
-                      <button
-                        className={`check-btn${checked ? ' checked' : ''}`}
-                        onClick={() => toggleCheck(id)}
-                      >
+                    <div
+                      key={id}
+                      className={`schedule-supp${checked ? ' checked' : ''}`}
+                      onClick={() => toggleCheck(id)}
+                    >
+                      <div className={`check-btn${checked ? ' checked' : ''}`}>
                         {checked ? '✓' : ''}
-                      </button>
+                      </div>
                       <span className="schedule-supp-emoji">{supp.emoji}</span>
                       <span className="schedule-supp-name">{supp.name}</span>
                       <button
                         className="schedule-remove-btn"
-                        onClick={() => toggleSupplement(group.id, id)}
+                        onClick={e => { e.stopPropagation(); toggleSupplement(group.id, id) }}
                         title="제거"
                       >
                         ✕
@@ -102,13 +103,14 @@ export default function SchedulePage({
                   if (!med) return null
                   const checked = todayChecked.includes(id)
                   return (
-                    <div key={id} className={`schedule-supp med-item${checked ? ' checked' : ''}`}>
-                      <button
-                        className={`check-btn${checked ? ' checked' : ''}`}
-                        onClick={() => toggleCheck(id)}
-                      >
+                    <div
+                      key={id}
+                      className={`schedule-supp med-item${checked ? ' checked' : ''}`}
+                      onClick={() => toggleCheck(id)}
+                    >
+                      <div className={`check-btn${checked ? ' checked' : ''}`}>
                         {checked ? '✓' : ''}
-                      </button>
+                      </div>
                       <span className="schedule-supp-emoji">{med.emoji}</span>
                       <span className="schedule-supp-name">
                         {med.name}
@@ -116,7 +118,7 @@ export default function SchedulePage({
                       </span>
                       <button
                         className="schedule-remove-btn"
-                        onClick={() => toggleMedication(group.id, id)}
+                        onClick={e => { e.stopPropagation(); toggleMedication(group.id, id) }}
                         title="제거"
                       >
                         ✕

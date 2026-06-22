@@ -155,6 +155,10 @@
   padding: 10px 8px;
   border-radius: var(--radius-sm);
   transition: background 0.15s;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .schedule-supp.checked {
