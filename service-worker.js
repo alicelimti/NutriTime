@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nutritime-v8'
+const CACHE_NAME = 'nutritime-v9'
 
 // ── Install: skipWaiting 제거 → 사용자 확인 후 활성화 ──
 self.addEventListener('install', event => {
