@@ -113,6 +113,8 @@ export default function SettingsPage({ settings, setSettings, user }) {
           </div>
         </div>
       </div>
+
+      <p className="settings-footer">© 2026 임윤서. Made with ❤️</p>
     </div>
   )
 }
