@@ -49,6 +49,22 @@ export default function SettingsPage({ settings, setSettings, user }) {
         ))}
       </div>
 
+      {/* 제휴 파트너 */}
+      <div className="settings-section">
+        <div className="settings-section-title"><span>🛍️</span> 제휴 파트너</div>
+        <div className="partner-grid">
+          <a
+            href="https://brand.naver.com/iherb?NaPm=ct%3Dmqotd7sd%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3Dnull%7Chk%3D05d9d5b71955a92cf4a5fb6a1041c4336ba8b5dc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="partner-chip"
+          >
+            <span>🌿</span> iHerb
+          </a>
+        </div>
+        <p className="settings-partner-note">파트너 링크를 통해 구매하시면 앱 운영에 도움이 됩니다 🙏</p>
+      </div>
+
       {/* 계정 */}
       <div className="settings-section">
         <div className="settings-section-title"><span>👤</span> 계정</div>
