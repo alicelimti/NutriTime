@@ -51,4 +51,6 @@ button {
   border: none;
   background: none;
   font-family: inherit;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
