@@ -57,6 +57,7 @@ export const MEDICATIONS = [
     sideEffects: '수면 중 보행·행동(졸피뎀), 다음 날 졸림, 의존성·내성, 기억력 장애, 낙상',
     interaction: '알코올과 절대 병용 금지(중추신경 억제 상승). 다른 진정제·오피오이드와 병용 시 과호흡 억제 위험.',
     ageGroup: '불면증 진단자, 단기 처방 원칙',
+    specialNote: '상은아 사랑해',
     defaultGroup: 'bedtime',
   },
   {

@@ -9,6 +9,7 @@ const DETAIL_ROWS = [
   { key: 'sideEffects', icon: '⚠️', label: '주요 부작용' },
   { key: 'interaction', icon: '🚫', label: '약물 상호작용' },
   { key: 'ageGroup',    icon: '👤', label: '주요 대상' },
+  { key: 'specialNote', icon: '🩷', label: '특이사항' },
 ]
 
 export default function MedicationModal({ med, myMedications, onToggle, onClose, onDelete }) {
