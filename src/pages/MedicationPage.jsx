@@ -30,7 +30,7 @@ export default function MedicationPage({
         <h1 className="medication-title">
           <span>💉</span> 복용약 라이브러리
         </h1>
-        <p className="medication-sub">잊지말자 꼬박꼬박</p>
+        <p className="medication-sub">아프다고 우울해지지말고 우웅하고 귀엽게 건강해지자</p>
       </div>
 
       <div className="medication-count">
